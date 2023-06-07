@@ -16,8 +16,11 @@ export const Title = styled.h1`
   color: #141850;
 `
 export const Ul = styled.ul`
-  display: flex;
+  display: none;
   align-items: center;
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
 `
 export const Li = styled.li`
   list-style-type: none;
