@@ -8,6 +8,7 @@ import {
   A,
 } from "./styledComponents"
 
+const cartItemsKey = "cartItems"
 const tabItems = ["DETAILS", "PAYMENT"]
 const initailAddress = {
   name: "",
@@ -122,11 +123,18 @@ const CheckOuts = () => {
     )
   }
 
+  const renderTotalCost = () => {
+    const localStorageCartItems = JSON.parse(localStorage.getItem(cartItemsKey))
+    let totalAmount = 0
+    localStorageCartItems.map((a) => (totalAmount += a.quantity * a.price))
+    return totalAmount
+  }
+
   const renderPaymentBlock = () => (
     <Form>
       <Input placeholder="Account Number" />
       <Input placeholder="IFSC Code" />
-      <Button disabled>Amount: 1000</Button>
+      <Button disabled>Amount: {renderTotalCost()}</Button>
       <A href="/success-payment">Pay Now</A>
     </Form>
   )
