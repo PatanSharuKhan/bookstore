@@ -110,14 +110,26 @@ const Books = () => {
               />
               <BookData>
                 <H>{each.title}</H>
-                <P>{each.description}</P>
-                <P>{each.author}</P>
+                <P>
+                  <b>Desc: </b>
+                  {each.description}
+                </P>
+                <P>
+                  <b>Author: </b>
+                  {each.author}
+                </P>
                 <P>
                   <GiPriceTag />
-                  {each.price}
+                  <b> :</b> {each.price}
                 </P>
                 <Buttons>
-                  <Button type="button" onClick={() => addToCart(each)}>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      alert(each.title + " item added")
+                      addToCart(each)
+                    }}
+                  >
                     Add
                   </Button>
                   <Button type="button">View More</Button>
