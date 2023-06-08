@@ -68,9 +68,11 @@ const Cart = () => {
 
   const renderActionBox = () => (
     <ActionBox>
-      <Button color="white" bgColor="blue">
-        Order Now
-      </Button>
+      <a href="/checkout">
+        <Button color="white" bgColor="blue">
+          Check Out
+        </Button>
+      </a>
     </ActionBox>
   )
 
