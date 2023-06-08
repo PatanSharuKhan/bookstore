@@ -7,6 +7,8 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: #f5cac2;
+  position: sticky;
+  top: 0px;
   @media screen and (min-width: 768px) {
     padding-left: 10%;
     padding-right: 10%;

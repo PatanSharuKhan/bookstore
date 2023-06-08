@@ -8,6 +8,7 @@ import Books from "./pages/Books"
 import NotFound from "./pages/NotFound"
 import StoreContext from "./storeContext"
 import CheckOuts from "./pages/CheckOuts"
+import SuccessPayment from "./pages/SuccessPayment"
 
 function App() {
   const cartItemsKey = "cartItems"
@@ -21,6 +22,7 @@ function App() {
           <Route path="/book/:id" element={<h1>Detailed book</h1>} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<CheckOuts />} />
+          <Route path="/success-payment" element={<SuccessPayment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
