@@ -9,20 +9,41 @@ import NotFound from "./pages/NotFound"
 import StoreContext from "./storeContext"
 import CheckOuts from "./pages/CheckOuts"
 import SuccessPayment from "./pages/SuccessPayment"
+import Cookies from "js-cookie"
+import { useEffect, useState } from "react"
 
 function App() {
+  const [isUserAuthorised, setUserAuthority] = useState(false)
+  useEffect(() => {
+    const tokenKey = "jwt_tokens"
+    const jwtToken = Cookies.get(tokenKey)
+    const isUserAuthorized = !(jwtToken === undefined)
+    setUserAuthority(isUserAuthorized)
+  }, [])
   const cartItemsKey = "cartItems"
+
+  const changeUserAuthority = () => {
+    setUserAuthority(!isUserAuthorised)
+  }
   return (
     <BrowserRouter>
-      <StoreContext.Provider value={{ cartItemsKey }}>
+      <StoreContext.Provider
+        value={{ cartItemsKey, isUserAuthorised, changeUserAuthority }}
+      >
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/books" element={<Books />} />
-          <Route path="/book/:id" element={<h1>Detailed book</h1>} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<CheckOuts />} />
-          <Route path="/success-payment" element={<SuccessPayment />} />
+          {isUserAuthorised && <Route path="/books" element={<Books />} />}
+          {isUserAuthorised && (
+            <Route path="/book/:id" element={<h1>Detailed book</h1>} />
+          )}
+          {isUserAuthorised && <Route path="/cart" element={<Cart />} />}
+          {isUserAuthorised && (
+            <Route path="/checkout" element={<CheckOuts />} />
+          )}
+          {isUserAuthorised && (
+            <Route path="/success-payment" element={<SuccessPayment />} />
+          )}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

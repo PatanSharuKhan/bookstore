@@ -8,6 +8,7 @@ import {
   Buttons,
   Button,
 } from "./styledComponents"
+import { GiPriceTag } from "react-icons/gi"
 
 const cartItemsKey = "cartItems"
 
@@ -18,48 +19,55 @@ const booksList = [
     description: "First person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
+    price: 10000,
   },
   {
     id: 2,
-    title: "First",
-    description: "First person to publish this book ! interesting right ! ",
+    title: "Second",
+    description: "Second person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
+    price: 10000,
   },
   {
     is: 3,
-    title: "First",
-    description: "First person to publish this book ! interesting right ! ",
+    title: "Third",
+    description: "Third person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
+    price: 10000,
   },
   {
     id: 4,
-    title: "First",
-    description: "First person to publish this book ! interesting right ! ",
+    title: "Fourth",
+    description: "Fourth person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
+    price: 10000,
   },
   {
     id: 5,
-    title: "First",
-    description: "First person to publish this book ! interesting right ! ",
+    title: "Fifth",
+    description: "Fifth person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
+    price: 10000,
   },
   {
     id: 6,
-    title: "First",
-    description: "First person to publish this book ! interesting right ! ",
+    title: "Sixth",
+    description: "Sixth person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
+    price: 10000,
   },
   {
     id: 7,
-    title: "First",
-    description: "First person to publish this book ! interesting right ! ",
+    title: "Seventh",
+    description: "Seventh person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
+    price: 10000,
   },
 ]
 
@@ -104,7 +112,10 @@ const Books = () => {
                 <H>{each.title}</H>
                 <P>{each.description}</P>
                 <P>{each.author}</P>
-                <P>{each.rating}</P>
+                <P>
+                  <GiPriceTag />
+                  {each.price}
+                </P>
                 <Buttons>
                   <Button type="button" onClick={() => addToCart(each)}>
                     Add
