@@ -4,7 +4,7 @@ export const Ul = styled.ul`
   padding-left: 0px;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
   @media screen and (min-width: 768px) {
     width: 80%;
@@ -22,6 +22,7 @@ export const Li = styled.li`
   border-radius: 10px;
   @media screen and (min-width: 526px) {
     width: 49%;
+    margin-right: 10px;
   }
   @media screen and (min-width: 1100px) {
     width: 32%;
@@ -56,7 +57,7 @@ export const Button = styled.button`
   margin-right: 10px;
   cursor: pointer;
   color: ${(props) => props.color};
-  background-color: #303179;
+  background-color: ${(props) => props.bgColor};
   padding: 5px;
   border: 0px;
   border-radius: 5px;
@@ -64,9 +65,55 @@ export const Button = styled.button`
 `
 export const Header = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
   @media screen and (min-width: 768px) {
     width: 80%;
     margin: auto;
+  }
+`
+export const Hr = styled.hr`
+  @media screen and (min-width: 768px) {
+    width: 80%;
+    margin: auto;
+  }
+`
+export const CostBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  @media screen and (min-width: 768px) {
+    width: 80%;
+    margin: auto;
+  }
+`
+export const ActionBox = styled.div`
+  font-size: 24px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: cemter;
+  @media screen and (min-width: 768px) {
+    width: 80%;
+    margin: auto;
+  }
+`
+export const EmptyView = styled.div`
+  padding: 10px;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media screen and (min-width: 768px) {
+    width: 80%;
+    margin: auto;
+  }
+`
+export const EmptyImg = styled.img`
+  width: 90%;
+  @media screen and (min-width: 768px) {
+    width: 60%;
   }
 `

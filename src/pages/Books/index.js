@@ -65,42 +65,58 @@ const booksList = [
 
 const Books = () => {
   const addToCart = (item) => {
-    const cartItems = localStorage.getItem(cartItemsKey)
-    if (cartItems === null) {
-      localStorage.setItem(cartItemsKey, JSON.stringify([item]))
+    let localStorageCartItems = JSON.parse(localStorage.getItem(cartItemsKey))
+    const itemObject = { ...item, quantity: 1 }
+    const areItemsNull = localStorageCartItems === null
+    if (areItemsNull) {
+      const value = JSON.stringify([itemObject])
+      localStorage.setItem(cartItemsKey, value)
     } else {
-      localStorage.setItem(
-        cartItemsKey,
-        JSON.stringify([...JSON.parse(cartItems), item])
-      )
+      let isListUpdated = false
+      let updatedCartItems = localStorageCartItems.map((each) => {
+        const isItemMatched = each.id === item.id
+        if (isItemMatched) {
+          isListUpdated = true
+          return { ...each, quantity: each.quantity + 1 }
+        }
+        return each
+      })
+      if (!isListUpdated) {
+        updatedCartItems = [...localStorageCartItems, itemObject]
+      }
+      const value = JSON.stringify(updatedCartItems)
+      localStorage.setItem(cartItemsKey, value)
     }
   }
 
   return (
-    <Ul>
-      {booksList.map((each) => {
-        return (
-          <Li key={each.id}>
-            <Img
-              src="https://d2g9wbak88g7ch.cloudfront.net/productimages/images200/007/9780857360007.jpg"
-              alt="book"
-            />
-            <BookData>
-              <H>{each.title}</H>
-              <P>{each.description}</P>
-              <P>{each.author}</P>
-              <P>{each.rating}</P>
-              <Buttons>
-                <Button type="button" onClick={() => addToCart(each)}>
-                  Add
-                </Button>
-                <Button type="button">View More</Button>
-              </Buttons>
-            </BookData>
-          </Li>
-        )
-      })}
-    </Ul>
+    <>
+      <hr />
+      <Ul>
+        {booksList.map((each) => {
+          return (
+            <Li key={each.id}>
+              <Img
+                src="https://d2g9wbak88g7ch.cloudfront.net/productimages/images200/007/9780857360007.jpg"
+                alt="book"
+              />
+              <BookData>
+                <H>{each.title}</H>
+                <P>{each.description}</P>
+                <P>{each.author}</P>
+                <P>{each.rating}</P>
+                <Buttons>
+                  <Button type="button" onClick={() => addToCart(each)}>
+                    Add
+                  </Button>
+                  <Button type="button">View More</Button>
+                </Buttons>
+              </BookData>
+            </Li>
+          )
+        })}
+      </Ul>
+    </>
   )
 }
 export default Books

@@ -18,8 +18,14 @@ export const Li = styled.li`
   margin-bottom: 10px;
   padding: 10px;
   display: flex;
-  max-width: 350px;
+  width: 100%;
   border-radius: 10px;
+  @media screen and (min-width: 526px) {
+    width: 49%;
+  }
+  @media screen and (min-width: 1100px) {
+    width: 32%;
+  }
 `
 
 export const H = styled.h1`

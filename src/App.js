@@ -5,20 +5,25 @@ import Cart from "./pages/Cart"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import Books from "./pages/Books"
+import NotFound from "./pages/NotFound"
+import StoreContext from "./storeContext"
 
 function App() {
+  const cartItemsKey = "cartItems"
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/books" element={<Books />} />
-        <Route path="/book/:id" element={<h1>Detailed book</h1>} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<h1>checkouts</h1>} />
-        <Route path="*" element={<h1>Not Found</h1>} />
-      </Routes>
-      <Footer />
+      <StoreContext.Provider value={{ cartItemsKey }}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/book/:id" element={<h1>Detailed book</h1>} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<h1>checkouts</h1>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </StoreContext.Provider>
     </BrowserRouter>
   )
 }
