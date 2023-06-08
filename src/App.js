@@ -7,6 +7,7 @@ import Footer from "./components/Footer"
 import Books from "./pages/Books"
 import NotFound from "./pages/NotFound"
 import StoreContext from "./storeContext"
+import CheckOuts from "./pages/CheckOuts"
 
 function App() {
   const cartItemsKey = "cartItems"
@@ -19,7 +20,7 @@ function App() {
           <Route path="/books" element={<Books />} />
           <Route path="/book/:id" element={<h1>Detailed book</h1>} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<h1>checkouts</h1>} />
+          <Route path="/checkout" element={<CheckOuts />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
