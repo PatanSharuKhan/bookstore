@@ -76,10 +76,17 @@ const Cart = () => {
     </ActionBox>
   )
 
+  const renderTotalCost = () => {
+    const localStorageCartItems = JSON.parse(localStorage.getItem(cartItemsKey))
+    let totalAmount = 0
+    localStorageCartItems.map((a) => (totalAmount += a.quantity * a.price))
+    return totalAmount
+  }
+
   const renderCostBox = () => (
     <CostBox>
       <H>Total Cost</H>
-      <H>RS.1000</H>
+      <H>RS.{renderTotalCost()}</H>
     </CostBox>
   )
 
@@ -95,8 +102,10 @@ const Cart = () => {
             <BookData>
               <H>{each.title}</H>
               <P>{each.description}</P>
-              <P>{each.author}</P>
-              <P>{each.rating}</P>
+              <P>
+                <b>Author:</b> {each.author}
+              </P>
+              <P>Rs.{each.quantity * each.price}</P>
               <Buttons>
                 <Button
                   type="button"

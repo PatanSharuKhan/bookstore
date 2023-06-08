@@ -38,6 +38,7 @@ export const P = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: start;
+  margin-bottom: 5px;
 `
 export const Img = styled.img`
   width: 30%;
