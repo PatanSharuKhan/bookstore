@@ -1,3 +1,4 @@
+import { useState } from "react"
 import {
   Ul,
   Li,
@@ -24,7 +25,7 @@ const booksList = [
     description: "First person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
-    price: 10000,
+    price: 356,
   },
   {
     id: 2,
@@ -32,7 +33,7 @@ const booksList = [
     description: "Second person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
-    price: 10000,
+    price: 256,
   },
   {
     is: 3,
@@ -40,7 +41,7 @@ const booksList = [
     description: "Third person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
-    price: 10000,
+    price: 756,
   },
   {
     id: 4,
@@ -48,7 +49,7 @@ const booksList = [
     description: "Fourth person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
-    price: 10000,
+    price: 100,
   },
   {
     id: 5,
@@ -56,7 +57,7 @@ const booksList = [
     description: "Fifth person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
-    price: 10000,
+    price: 900,
   },
   {
     id: 6,
@@ -64,7 +65,7 @@ const booksList = [
     description: "Sixth person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
-    price: 10000,
+    price: 400,
   },
   {
     id: 7,
@@ -72,11 +73,13 @@ const booksList = [
     description: "Seventh person to publish this book ! interesting right ! ",
     author: "Sharukhan",
     rating: 4.0,
-    price: 10000,
+    price: 420,
   },
 ]
 
 const Books = () => {
+  const [query, setQuery] = useState("")
+
   const addToCart = (item) => {
     let localStorageCartItems = JSON.parse(localStorage.getItem(cartItemsKey))
     const itemObject = { ...item, quantity: 1 }
@@ -102,11 +105,20 @@ const Books = () => {
     }
   }
 
+  const filteringBooksList = booksList.filter((book) =>
+    book.title.toLowerCase().includes(query.toLowerCase())
+  )
+  console.log(filteringBooksList)
   return (
     <>
       <Header>
         <H>Discover books</H>
-        <SearchBar type="search" placeholder="Search with keyword" />
+        <SearchBar
+          type="search"
+          placeholder="Search with keyword"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+        />
         <Select>
           <Option>Low to High</Option>
           <Option>High to Low</Option>
@@ -114,7 +126,7 @@ const Books = () => {
       </Header>
       <Hr />
       <Ul>
-        {booksList.map((each) => {
+        {filteringBooksList.map((each) => {
           return (
             <Li key={each.id}>
               <Img
