@@ -11,6 +11,7 @@ import CheckOuts from "./pages/CheckOuts"
 import SuccessPayment from "./pages/SuccessPayment"
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
+import BookDetails from "./pages/BookDetails"
 
 function App() {
   const [isUserAuthorised, setUserAuthority] = useState(false)
@@ -35,7 +36,7 @@ function App() {
           <Route path="/" element={<Home />} />
           {isUserAuthorised && <Route path="/books" element={<Books />} />}
           {isUserAuthorised && (
-            <Route path="/book/:id" element={<h1>Detailed book</h1>} />
+            <Route path="/book/:id" element={<BookDetails />} />
           )}
           {isUserAuthorised && <Route path="/cart" element={<Cart />} />}
           {isUserAuthorised && (

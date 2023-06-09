@@ -157,7 +157,9 @@ const Books = () => {
                   >
                     Add
                   </Button>
-                  <Button type="button">View More</Button>
+                  <a href={`book/${each.id}`}>
+                    <Button type="button">View More</Button>
+                  </a>
                 </Buttons>
               </BookData>
             </Li>
