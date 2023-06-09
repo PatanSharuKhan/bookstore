@@ -20,7 +20,6 @@ const Navbar = () => {
         <Li>
           <StoreContext.Consumer>
             {(value) => {
-              console.log(value)
               const { isUserAuthorised, changeUserAuthority } = value
               return (
                 <>
