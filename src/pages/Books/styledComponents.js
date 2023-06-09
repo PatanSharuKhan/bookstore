@@ -62,3 +62,33 @@ export const Button = styled.button`
   border: 0px;
   border-radius: 5px;
 `
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  @media screen and (min-width: 768px) {
+    width: 80%;
+    margin: auto;
+  }
+`
+export const Hr = styled.hr`
+  @media screen and (min-width: 768px) {
+    width: 80%;
+    margin: auto;
+  }
+`
+export const SearchBar = styled.input`
+  border: 1px solid grey;
+  border-radius: 5px;
+  width: 250px;
+  font-size: 20px;
+  padding: 5px;
+`
+export const Select = styled.select`
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid grey;
+`
+
+export const Option = styled.option``

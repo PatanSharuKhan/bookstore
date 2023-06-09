@@ -7,6 +7,11 @@ import {
   H,
   Buttons,
   Button,
+  Header,
+  Hr,
+  SearchBar,
+  Select,
+  Option,
 } from "./styledComponents"
 import { GiPriceTag } from "react-icons/gi"
 
@@ -99,7 +104,15 @@ const Books = () => {
 
   return (
     <>
-      <hr />
+      <Header>
+        <H>Discover books</H>
+        <SearchBar type="search" placeholder="Search with keyword" />
+        <Select>
+          <Option>Low to High</Option>
+          <Option>High to Low</Option>
+        </Select>
+      </Header>
+      <Hr />
       <Ul>
         {booksList.map((each) => {
           return (
