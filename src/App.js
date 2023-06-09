@@ -24,6 +24,12 @@ function App() {
   const cartItemsKey = "cartItems"
 
   const changeUserAuthority = () => {
+    const jwtToken = Cookies.get("jwt_tokens")
+    if (jwtToken === undefined) {
+      Cookies.set("jwt_tokens", "JWT_TOKEN", { expires: 3 })
+    } else {
+      Cookies.remove("jwt_tokens")
+    }
     setUserAuthority(!isUserAuthorised)
   }
   return (
