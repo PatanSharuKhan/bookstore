@@ -15,70 +15,36 @@ import {
   Option,
 } from "./styledComponents"
 import { GiPriceTag } from "react-icons/gi"
+import Bufferer from "../../components/Bufferer"
+import { useEffect } from "react"
 
 const cartItemsKey = "cartItems"
 
-const booksList = [
-  {
-    id: 1,
-    title: "First",
-    description: "First person to publish this book ! interesting right ! ",
-    author: "Sharukhan",
-    rating: 4.0,
-    price: 356,
-  },
-  {
-    id: 2,
-    title: "Second",
-    description: "Second person to publish this book ! interesting right ! ",
-    author: "Sharukhan",
-    rating: 4.0,
-    price: 256,
-  },
-  {
-    is: 3,
-    title: "Third",
-    description: "Third person to publish this book ! interesting right ! ",
-    author: "Sharukhan",
-    rating: 4.0,
-    price: 756,
-  },
-  {
-    id: 4,
-    title: "Fourth",
-    description: "Fourth person to publish this book ! interesting right ! ",
-    author: "Sharukhan",
-    rating: 4.0,
-    price: 100,
-  },
-  {
-    id: 5,
-    title: "Fifth",
-    description: "Fifth person to publish this book ! interesting right ! ",
-    author: "Sharukhan",
-    rating: 4.0,
-    price: 900,
-  },
-  {
-    id: 6,
-    title: "Sixth",
-    description: "Sixth person to publish this book ! interesting right ! ",
-    author: "Sharukhan",
-    rating: 4.0,
-    price: 400,
-  },
-  {
-    id: 7,
-    title: "Seventh",
-    description: "Seventh person to publish this book ! interesting right ! ",
-    author: "Sharukhan",
-    rating: 4.0,
-    price: 420,
-  },
-]
-
 const Books = () => {
   const [query, setQuery] = useState("")
+  const [books, setBooks] = useState([])
+  const [isLoading, setLoadingStatus] = useState(true)
+  const [isApiError, setApiErrorStatus] = useState(false)
+
+  useEffect(() => {
+    fetchBooks()
+  })
+
+  const fetchBooks = async () => {
+    const url = "http://www.localhost:4000/books"
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        setBooks(data)
+        setLoadingStatus(false)
+      })
+      .catch(() => {
+        setLoadingStatus(false)
+        setApiErrorStatus(true)
+      })
+  }
+
+  // -----[ Event Actions ]-----
 
   const addToCart = (item) => {
     let localStorageCartItems = JSON.parse(localStorage.getItem(cartItemsKey))
@@ -105,68 +71,106 @@ const Books = () => {
     }
   }
 
-  const filteringBooksList = booksList.filter((book) =>
+  const filteringBooksList = books.filter((book) =>
     book.title.toLowerCase().includes(query.toLowerCase())
   )
-  console.log(filteringBooksList)
-  return (
-    <>
-      <Header>
-        <H>Discover books</H>
-        <SearchBar
-          type="search"
-          placeholder="Search with keyword"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        <Select>
-          <Option>Low to High</Option>
-          <Option>High to Low</Option>
-        </Select>
-      </Header>
-      <Hr />
-      <Ul>
-        {filteringBooksList.map((each) => {
-          return (
-            <Li key={each.id}>
-              <Img
-                src="https://d2g9wbak88g7ch.cloudfront.net/productimages/images200/007/9780857360007.jpg"
-                alt="book"
-              />
-              <BookData>
-                <H>{each.title}</H>
-                <P>
-                  <b>Desc: </b>
-                  {each.description}
-                </P>
-                <P>
-                  <b>Author: </b>
-                  {each.author}
-                </P>
-                <P>
-                  <GiPriceTag />
-                  <b> :</b> {each.price}
-                </P>
-                <Buttons>
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      alert(each.title + " item added")
-                      addToCart(each)
-                    }}
-                  >
-                    Add
-                  </Button>
-                  <a href={`book/${each.id}`}>
-                    <Button type="button">View More</Button>
-                  </a>
-                </Buttons>
-              </BookData>
-            </Li>
-          )
-        })}
-      </Ul>
-    </>
+
+  // -----[ Header Section ]-----
+
+  const renderHeader = () => (
+    <Header>
+      <H>Discover books</H>
+      <SearchBar
+        type="search"
+        placeholder="Search with keyword"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+      />
+      <Select>
+        <Option>Low to High</Option>
+        <Option>High to Low</Option>
+      </Select>
+    </Header>
   )
+
+  // -----[ Books Cards Section ]-----
+
+  const renderImage = () => (
+    <Img
+      src="https://d2g9wbak88g7ch.cloudfront.net/productimages/images200/007/9780857360007.jpg"
+      alt="book"
+    />
+  )
+
+  const renderBookData = (book) => (
+    <BookData>
+      <H>{book.title}</H>
+      <P>
+        <b>Desc: </b>
+        {book.description}
+      </P>
+      <P>
+        <b>Author: </b>
+        {book.author}
+      </P>
+      <P>
+        <GiPriceTag />
+        <b> :</b> {book.price}
+      </P>
+      <Buttons>
+        <Button
+          type="button"
+          onClick={() => {
+            alert(book.title + " item added")
+            addToCart(book)
+          }}
+        >
+          Add
+        </Button>
+        <a href={`book/${book.id}`}>
+          <Button type="button">View More</Button>
+        </a>
+      </Buttons>
+    </BookData>
+  )
+
+  const renderBooksCards = () => (
+    <Ul>
+      {filteringBooksList.map((book) => {
+        return (
+          <Li key={book.id}>
+            {renderImage()}
+            {renderBookData(book)}
+          </Li>
+        )
+      })}
+    </Ul>
+  )
+
+  const renderLoadingView = () => <Bufferer />
+
+  const renderDataView = () => {
+    if (isApiError) {
+      return (
+        <>
+          <br />
+          <H>
+            <center>Api Error !</center>
+          </H>
+          <br />
+        </>
+      )
+    }
+    return (
+      <>
+        {renderHeader()}
+        <Hr />
+        {renderBooksCards()}
+      </>
+    )
+  }
+
+  return isLoading ? renderLoadingView() : renderDataView()
 }
+
 export default Books
